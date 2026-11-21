@@ -207,10 +207,10 @@
         </div>
       </div>
       <aside class="total">
-        <div class="cap">Ориентировочно</div>
-        <div class="sum" id="sum">— ₽</div>
-        <div class="note" id="note">линейная, 3,6 м</div>
-        <a class="btn" id="wa" href="#">Отправить расчёт в WhatsApp</a>
+        <div class="cap">Проект и цена под ваш метраж</div>
+        <div class="sum" id="sum" style="font-size:23px;line-height:1.25">Стоимость назовём в WhatsApp</div>
+        <div class="note" id="note">укажите параметры слева</div>
+        <a class="btn" id="wa" href="#">Узнать цену в WhatsApp</a>
         <ul id="lines"></ul>
       </aside>
     </div>
@@ -270,18 +270,17 @@
     if(tech){
       var t=len*12000; total+=t; lines.push(["Встроенная техника", t]);
     }
-    var min=total*0.95, max=total*1.1;
-    $("sum").textContent=fmt(min)+" – "+fmt(max);
-    $("note").textContent=$("shape").selectedOptions[0].text+", "+len.toFixed(1).replace(".",",")+" м · "+$("facade").selectedOptions[0].text;
-    $("lines").innerHTML=lines.map(function(l){return "<li><span>"+l[0]+"</span><span>"+fmt(l[1])+"</span></li>";}).join("");
+    $("sum").textContent="Стоимость назовём в WhatsApp";
+    $("note").textContent=len.toFixed(1).replace(".",",")+" м · "+$("shape").selectedOptions[0].text.toLowerCase();
+    var params=[["Фасады",$("facade").selectedOptions[0].text],["Столешница",$("top").selectedOptions[0].text],["Техника",$("tech").selectedOptions[0].text]];
+    $("lines").innerHTML=params.map(function(pp){return "<li><span>"+pp[0]+"</span><span>"+pp[1]+"</span></li>";}).join("");
     var msg="Здравствуйте! Расчёт с сайта:\n"
       +"Длина: "+len.toFixed(1)+" м\n"
       +"Форма: "+$("shape").selectedOptions[0].text+"\n"
       +"Фасады: "+$("facade").selectedOptions[0].text+"\n"
       +"Столешница: "+$("top").selectedOptions[0].text+"\n"
       +"Техника: "+$("tech").selectedOptions[0].text+"\n"
-      +"Ориентир: "+fmt(min)+" – "+fmt(max)+"\n"
-      +"Хочу замер и точный проект.";
+      +"Посчитайте, пожалуйста, стоимость и приезжайте на замер.";
     $("wa").href="https://wa.me/"+PHONE+"?text="+encodeURIComponent(msg);
   }
   ["len","shape","facade","top","tech"].forEach(function(id){ var el=$(id); el.addEventListener("input",calc); el.addEventListener("change",calc); });

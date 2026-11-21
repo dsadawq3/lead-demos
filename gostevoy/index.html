@@ -211,8 +211,8 @@
       </div>
 
       <aside class="summary">
-        <div class="cap">Итого за проживание</div>
-        <div class="sum" id="sum">— ₽</div>
+        <div class="cap">Бронь за две минуты</div>
+        <div class="sum" id="sum" style="font-size:23px;line-height:1.25">Стоимость подтвердим в WhatsApp</div>
         <div class="note" id="note">Выберите даты</div>
         <a class="btn" id="wa" href="#">Забронировать в WhatsApp</a>
         <ul id="lines"></ul>
@@ -322,30 +322,21 @@
     var fmt = function(v){ return Math.round(v).toLocaleString("ru-RU") + " ₽"; };
 
     if (!n){
-      $("sum").textContent = "— ₽";
+      $("sum").textContent = "Стоимость подтвердим в WhatsApp";
       $("note").textContent = "Выберите даты";
       $("lines").innerHTML = "";
       $("wa").href = "https://wa.me/" + PHONE + "?text=" + encodeURIComponent("Здравствуйте! Хочу узнать свободные даты.");
       return;
     }
 
-    var base = rate * n;
-    var lines = [["Проживание", n + " " + (n === 1 ? "ночь" : (n < 5 ? "ночи" : "ночей")), base]];
-    var total = base;
+    var lines = [["Проживание", n + " " + (n === 1 ? "ночь" : (n < 5 ? "ночи" : "ночей"))]];
+    if ($("breakfast").checked) lines.push(["Завтрак", guests + " чел"]);
+    if ($("parking").checked) lines.push(["Парковка", n + " сут."]);
 
-    if ($("breakfast").checked){
-      var bf = BREAKFAST * guests * n;
-      total += bf; lines.push(["Завтрак", guests + " чел × " + n + " дн.", bf]);
-    }
-    if ($("parking").checked){
-      var pk = PARKING * n;
-      total += pk; lines.push(["Парковка", n + " сут.", pk]);
-    }
-
-    $("sum").textContent = fmt(total);
+    $("sum").textContent = "Стоимость подтвердим в WhatsApp";
     $("note").textContent = n + " " + (n === 1 ? "ночь" : (n < 5 ? "ночи" : "ночей")) + " · " + guests + " гостя";
     $("lines").innerHTML = lines.map(function(l){
-      return "<li><span>" + l[0] + " · " + l[1] + "</span><span>" + fmt(l[2]) + "</span></li>";
+      return "<li><span>" + l[0] + "</span><span>" + l[1] + "</span></li>";
     }).join("");
 
     var msg = "Здравствуйте! Хочу забронировать:\n"
@@ -355,8 +346,7 @@
       + "Гостей: " + guests + "\n"
       + ($("breakfast").checked ? "С завтраком\n" : "")
       + ($("parking").checked ? "С парковкой\n" : "")
-      + "Итого: " + fmt(total) + "\n"
-      + "Подтвердите, пожалуйста.";
+      + "Подтвердите, пожалуйста, стоимость и бронь.";
     $("wa").href = "https://wa.me/" + PHONE + "?text=" + encodeURIComponent(msg);
   }
 

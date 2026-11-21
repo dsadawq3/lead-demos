@@ -219,10 +219,10 @@
       </div>
 
       <aside class="total">
-        <div class="cap">Предварительная стоимость</div>
-        <div class="sum" id="sum">0 ₽</div>
-        <div class="hint" id="hint">за 1 окно, с монтажом</div>
-        <a class="btn" id="wa" href="#">Отправить расчёт в WhatsApp</a>
+        <div class="cap">Считаем под ваш размер</div>
+        <div class="sum" id="sum" style="font-size:23px;line-height:1.25">Стоимость назовём в WhatsApp</div>
+        <div class="hint" id="hint">укажите параметры слева</div>
+        <a class="btn" id="wa" href="#">Узнать цену в WhatsApp</a>
         <ul id="breakdown"></ul>
       </aside>
     </div>
@@ -308,12 +308,23 @@
     var per = unit + extras;
     var total = per * cnt;
 
-    var fmt = function(v){ return Math.round(v).toLocaleString("ru-RU") + " ₽"; };
-    $("sum").textContent = fmt(total);
-    $("hint").textContent = cnt > 1 ? ("за " + cnt + " окна, " + fmt(per) + " за каждое") : "за 1 окно, с монтажом";
-
-    $("breakdown").innerHTML = lines.map(function(l){
-      return "<li><span>" + l[0] + "</span><span>" + fmt(l[1]) + "</span></li>";
+    var extrasList = [];
+    if ($("install").checked) extrasList.push("монтаж");
+    if ($("sill").checked) extrasList.push("подоконник");
+    if ($("slopes").checked) extrasList.push("откосы");
+    if ($("demount").checked) extrasList.push("демонтаж");
+    if ($("mosquito").checked) extrasList.push("сетка");
+    if ($("child").checked) extrasList.push("замок");
+    $("sum").textContent = "Стоимость назовём в WhatsApp";
+    $("hint").textContent = cnt + " шт · " + w + "×" + h + " см";
+    var params = [
+      ["Тип", $("type").selectedOptions[0].text],
+      ["Профиль", $("profile").selectedOptions[0].text],
+      ["Стеклопакет", $("glasspack").selectedOptions[0].text],
+      ["Допы", extrasList.length ? extrasList.join(", ") : "нет"]
+    ];
+    $("breakdown").innerHTML = params.map(function(pp){
+      return "<li><span>" + pp[0] + "</span><span>" + pp[1] + "</span></li>";
     }).join("");
 
     var msg = "Здравствуйте! Расчёт с сайта:\n"
@@ -322,8 +333,7 @@
       + "Стеклопакет: " + $("glasspack").selectedOptions[0].text + "\n"
       + "Размер: " + w + "×" + h + " см\n"
       + (cnt > 1 ? ("Количество: " + cnt + "\n") : "")
-      + "Итого примерно: " + fmt(total) + "\n"
-      + "Хочу точный расчёт и замер.";
+      + "Посчитайте, пожалуйста, стоимость и замер.";
     $("wa").href = "https://wa.me/" + PHONE + "?text=" + encodeURIComponent(msg);
   }
 

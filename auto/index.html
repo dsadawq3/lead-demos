@@ -182,10 +182,10 @@
         </div>
       </div>
       <aside class="total">
-        <div class="cap">Предварительно</div>
-        <div class="sum" id="sum">— ₽</div>
-        <div class="note" id="note">выберите работы</div>
-        <a class="btn" id="wa" href="#">Записаться в WhatsApp</a>
+        <div class="cap">Запись без звонков</div>
+        <div class="sum" id="sum" style="font-size:23px;line-height:1.25">Стоимость назовём в WhatsApp</div>
+        <div class="note" id="note">отметьте работы слева</div>
+        <a class="btn" id="wa" href="#">Узнать цену и записаться</a>
         <ul id="lines"></ul>
       </aside>
     </div>
@@ -241,17 +241,16 @@
       }
     });
     if(!lines.length){
-      $("sum").textContent="— ₽"; $("note").textContent="выберите работы"; $("lines").innerHTML="";
+      $("sum").textContent="Стоимость назовём в WhatsApp"; $("note").textContent="отметьте работы слева"; $("lines").innerHTML="";
       $("wa").href="https://wa.me/"+PHONE+"?text="+encodeURIComponent("Здравствуйте! Хочу записаться на ремонт.");
       return;
     }
-    var totalMin=total*0.92, totalMax=total*1.12;
-    $("sum").textContent=fmt(totalMin)+" – "+fmt(totalMax);
+    $("sum").textContent="Стоимость назовём в WhatsApp";
     $("note").textContent=lines.length+" "+word(lines.length)+" · "+(parts?"с вашими запчастями":"со своими запчастями");
-    $("lines").innerHTML=lines.map(function(l){return "<li><span>"+l[0]+"</span><span>"+fmt(l[1])+"</span></li>";}).join("");
+    $("lines").innerHTML=lines.map(function(l){return "<li><span>"+l[0]+"</span><span>уточним</span></li>";}).join("");
     var msg="Здравствуйте! Хочу записаться:\n"+lines.map(function(l){return "• "+l[0];}).join("\n")
       +"\nАвто: "+$("car").selectedOptions[0].text+"\nЗапчасти: "+$("parts").selectedOptions[0].text
-      +"\nОриентир: "+fmt(totalMin)+" – "+fmt(totalMax);
+      +"\nПосчитайте, пожалуйста, стоимость и запишите на удобное время.";
     $("wa").href="https://wa.me/"+PHONE+"?text="+encodeURIComponent(msg);
   }
   function word(n){ if(n%10===1&&n%100!==11)return "работа"; if(n%10>=2&&n%10<=4&&!(n%100>=12&&n%100<=14))return "работы"; return "работ"; }

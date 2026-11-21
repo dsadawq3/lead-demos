@@ -232,10 +232,10 @@
       </div>
 
       <aside class="total">
-        <div class="cap">Ориентировочная стоимость</div>
-        <div class="sum" id="sum">— ₽</div>
-        <div class="note" id="note">за дом под ключ</div>
-        <a class="btn" id="wa" href="#">Отправить смету в WhatsApp</a>
+        <div class="cap">Смета под ваш участок</div>
+        <div class="sum" id="sum" style="font-size:23px;line-height:1.25">Стоимость назовём в WhatsApp</div>
+        <div class="note" id="note">укажите параметры слева</div>
+        <a class="btn" id="wa" href="#">Узнать цену в WhatsApp</a>
         <ul id="lines"></ul>
       </aside>
     </div>
@@ -323,12 +323,20 @@
     if ($("eng").checked){ var e = area * 6500; total += e; lines.push(["Инженерия", e]); }
     if ($("finish").checked){ var f = area * 15000; total += f; lines.push(["Отделка", f]); }
 
-    var low = total * 0.93, high = total * 1.09;
-    $("sum").textContent = fmt(low) + " – " + fmt(high);
-    $("note").textContent = $("kind").selectedOptions[0].text + " · " + area + " м² · " + $("mat").selectedOptions[0].text;
-
-    $("lines").innerHTML = lines.map(function(l){
-      return "<li><span>" + l[0] + "</span><span>" + fmt(l[1]) + "</span></li>";
+    var extrasList = [];
+    if ($("roof").checked) extrasList.push("кровля");
+    if ($("windows").checked) extrasList.push("окна и двери");
+    if ($("eng").checked) extrasList.push("инженерия");
+    if ($("finish").checked) extrasList.push("отделка");
+    $("sum").textContent = "Стоимость назовём в WhatsApp";
+    $("note").textContent = area + " м² · " + $("floors").selectedOptions[0].text + " эт. · " + $("mat").selectedOptions[0].text;
+    var params = [
+      ["Объект", $("kind").selectedOptions[0].text],
+      ["Фундамент", $("found").selectedOptions[0].text],
+      ["Входит", extrasList.length ? extrasList.join(", ") : "базовый комплект"]
+    ];
+    $("lines").innerHTML = params.map(function(pp){
+      return "<li><span>" + pp[0] + "</span><span>" + pp[1] + "</span></li>";
     }).join("");
 
     var msg = "Здравствуйте! Смета с сайта:\n"
@@ -336,8 +344,7 @@
       + "Площадь: " + area + " м², этажей: " + $("floors").selectedOptions[0].text + "\n"
       + "Стены: " + $("mat").selectedOptions[0].text + "\n"
       + "Фундамент: " + $("found").selectedOptions[0].text + "\n"
-      + "Ориентир: " + fmt(low) + " – " + fmt(high) + "\n"
-      + "Хочу точную смету и выезд на участок.";
+      + "Посчитайте, пожалуйста, смету и приезжайте на замер.";
     $("wa").href = "https://wa.me/" + PHONE + "?text=" + encodeURIComponent(msg);
   }
 
