@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="color-scheme" content="light">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Строительство домов — смета за минуту | Черкесск</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Spectral:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{color-scheme:light}
+  :root{
+    --ink:#14161A;
+    --ink-2:#545A63;
+    --line:#DCDDE0;
+    --paper:#F4F4F2;
+    --card:#FFFFFF;
+    --steel:#25384B;
+    --steel-2:#32495F;
+    --amber:#B4762C;
+    --radius:16px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:"Inter Tight",system-ui,sans-serif;font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+  h1,h2,h3{font-family:"Spectral",Georgia,serif;font-weight:500;letter-spacing:-.015em}
+  .top{position:sticky;top:0;z-index:20;background:rgba(244,244,242,.93);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .top .wrap{height:70px;display:flex;align-items:center;justify-content:space-between}
+  .brand{display:flex;align-items:center;gap:11px}
+  .mark{width:32px;height:32px;background:var(--steel);border-radius:7px;display:grid;place-items:center;color:#F4F4F2;font-family:"Spectral",serif;font-size:17px}
+  .brand b{font-weight:500;font-size:16px}
+  .brand i{display:block;font-style:normal;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2)}
+  nav{display:flex;gap:26px;font-size:14px;color:var(--ink-2)}
+  nav a{text-decoration:none;color:inherit}
+  nav a:hover{color:var(--ink)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;border-radius:10px;padding:13px 20px;font:inherit;font-size:15px;font-weight:500;background:var(--steel);color:#F4F4F2;border:0;cursor:pointer;text-decoration:none;transition:background .15s ease,transform .15s ease}
+  .btn:hover{background:var(--steel-2);transform:translateY(-1px)}
+  .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+  .btn.ghost:hover{background:#fff}
+  .hero{padding:70px 0 60px;border-bottom:1px solid var(--line)}
+  .hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+  .kicker{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);font-weight:600}
+  h1{font-size:clamp(38px,4.8vw,60px);line-height:1.04;margin:16px 0 18px}
+  h1 em{font-style:italic;color:var(--steel)}
+  .lead{color:var(--ink-2);max-width:46ch;margin:0 0 28px}
+  .hero-cta{display:flex;gap:10px;flex-wrap:wrap}
+  .nums{display:flex;gap:34px;margin-top:34px}
+  .nums div{border-top:1px solid var(--line);padding-top:12px}
+  .nums b{display:block;font-family:"Spectral",serif;font-size:26px;font-weight:500}
+  .nums span{font-size:12.5px;color:var(--ink-2)}
+  .art svg{width:100%;height:auto;display:block}
+  section{border-bottom:1px solid var(--line)}
+  .sec{padding:68px 0}
+  .sec h2{font-size:clamp(28px,3.2vw,40px);margin:0 0 8px}
+  .sec p.sub{color:var(--ink-2);margin:0 0 34px;max-width:58ch}
+  .calc{display:grid;grid-template-columns:1.3fr .7fr;gap:22px;align-items:start}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  label{display:block;font-size:12.5px;color:var(--ink-2);margin-bottom:6px}
+  select,input{width:100%;padding:12px 13px;border:1px solid var(--line);border-radius:9px;background:#fff;font:inherit;font-size:15px;color:var(--ink)}
+  select:focus,input:focus{outline:2px solid rgba(37,56,75,.2);border-color:var(--steel)}
+  .range{display:flex;align-items:center;gap:12px}
+  .range input[type=range]{flex:1;accent-color:var(--steel)}
+  .range output{min-width:64px;text-align:right;font-size:15px}
+  .checks{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:4px}
+  .check{display:flex;gap:9px;align-items:center;font-size:14px;cursor:pointer}
+  .check input{width:16px;height:16px;accent-color:var(--steel)}
+  .total{background:var(--steel);color:#EDEFF1;border-radius:var(--radius);padding:26px;position:sticky;top:94px}
+  .total .cap{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#9CAAB8}
+  .total .sum{font-family:"Spectral",serif;font-size:38px;line-height:1.05;margin:12px 0 4px}
+  .total .note{font-size:13px;color:#A7B4C0;margin-bottom:18px}
+  .total .btn{width:100%;background:#EDEFF1;color:var(--steel)}
+  .total .btn:hover{background:#fff}
+  .total ul{list-style:none;padding:0;margin:16px 0 0;font-size:13px;color:#B7C2CC}
+  .total li{display:flex;justify-content:space-between;border-top:1px dashed rgba(255,255,255,.14);padding:7px 0}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .steps article{border-top:2px solid var(--ink);padding-top:16px}
+  .steps .n{font-size:12px;letter-spacing:.14em;color:var(--amber);font-weight:600}
+  .steps h3{font-size:19px;margin:8px 0 6px}
+  .steps p{margin:0;color:var(--ink-2);font-size:14px}
+  .incl{display:grid;grid-template-columns:1fr 1fr;gap:0 40px}
+  .incl ul{list-style:none;margin:0;padding:0}
+  .incl li{padding:11px 0;border-bottom:1px solid var(--line);display:flex;gap:10px;font-size:15px}
+  .incl li::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--amber);margin-top:9px;flex:none}
+  .cta{background:var(--steel);color:#EDEFF1}
+  .cta .wrap{display:flex;align-items:center;justify-content:space-between;gap:22px;padding:32px 24px;flex-wrap:wrap}
+  .cta h2{color:#EDEFF1;margin:0 0 4px}
+  .cta p{margin:0;color:#A7B4C0;font-size:14px}
+  .cta .btn{background:#EDEFF1;color:var(--steel)}
+  .cta .btn.ghost{border-color:rgba(255,255,255,.28);color:#EDEFF1;background:transparent}
+  footer{padding:30px 0 44px;color:var(--ink-2);font-size:13px}
+  footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  @media (max-width:920px){
+    .hero .wrap{grid-template-columns:1fr;gap:34px}
+    .art{order:-1}
+    .calc{grid-template-columns:1fr}
+    .total{position:static}
+    .steps{grid-template-columns:1fr 1fr}
+    .incl{grid-template-columns:1fr}
+    nav{display:none}
+    .grid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">
+      <div class="mark">С</div>
+      <div><b>Стройка</b><i>Черкесск · КЧР</i></div>
+    </div>
+    <nav>
+      <a href="#calc">Смета</a>
+      <a href="#steps">Этапы</a>
+      <a href="#what">Что входит</a>
+      <a href="#contact">Контакты</a>
+    </nav>
+    <a class="btn ghost" href="tel:+79000000000">+7 900 000-00-00</a>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div>
+      <div class="kicker">Дома и ремонт под ключ</div>
+      <h1>Смета на дом<br><em>без сюрпризов</em></h1>
+      <p class="lead">Считаем стоимость по площади и материалам сразу на сайте. Договор, фиксированная цена, свои бригады — без «доплатите ещё немного».</p>
+      <div class="hero-cta">
+        <a class="btn" href="#calc">Посчитать смету</a>
+        <a class="btn ghost" href="#what">Что входит в цену</a>
+      </div>
+      <div class="nums">
+        <div><b>14 лет</b><span>на рынке КЧР</span></div>
+        <div><b>96</b><span>домов сдано</span></div>
+        <div><b>3 года</b><span>гарантия</span></div>
+      </div>
+    </div>
+    <div class="art">
+      <svg viewBox="0 0 520 430" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Дом">
+        <defs>
+          <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#2C3E52"/><stop offset="1" stop-color="#1B2A39"/>
+          </linearGradient>
+        </defs>
+        <rect x="24" y="20" width="472" height="390" rx="8" fill="#E9E7E1"/>
+        <rect x="58" y="150" width="404" height="230" fill="#F7F5F0"/>
+        <path d="M42 150 L260 52 L478 150 Z" fill="url(#fade)"/>
+        <rect x="58" y="150" width="404" height="10" fill="#25384B"/>
+        <g fill="#33465A">
+          <rect x="86" y="186" width="70" height="70" rx="3"/>
+          <rect x="364" y="186" width="70" height="70" rx="3"/>
+          <rect x="86" y="286" width="70" height="70" rx="3"/>
+          <rect x="364" y="286" width="70" height="70" rx="3"/>
+        </g>
+        <g fill="#BFD3DE" opacity=".85">
+          <rect x="92" y="192" width="58" height="58" rx="2"/>
+          <rect x="370" y="192" width="58" height="58" rx="2"/>
+          <rect x="92" y="292" width="58" height="58" rx="2"/>
+          <rect x="370" y="292" width="58" height="58" rx="2"/>
+        </g>
+        <rect x="222" y="230" width="76" height="150" fill="#25384B"/>
+        <rect x="240" y="252" width="40" height="52" rx="2" fill="#BFD3DE" opacity=".7"/>
+        <rect x="58" y="380" width="404" height="12" fill="#CFCCC4"/>
+        <path d="M330 96 L360 78 L360 96 Z" fill="#B4762C"/>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<section id="calc">
+  <div class="wrap sec">
+    <h2>Смета за минуту</h2>
+    <p class="sub">Двиньте площадь и выберите материалы — получите вилку стоимости и срок. Точная смета считается после выезда на участок.</p>
+    <div class="calc">
+      <div class="panel">
+        <div class="grid">
+          <div>
+            <label for="kind">Что строим</label>
+            <select id="kind">
+              <option value="1" selected>Дом под ключ</option>
+              <option value="0.72">Коробка (без отделки)</option>
+              <option value="0.42">Фундамент и коробка</option>
+              <option value="0.55">Ремонт дома</option>
+              <option value="0.48">Ремонт квартиры</option>
+            </select>
+          </div>
+          <div>
+            <label for="floors">Этажей</label>
+            <select id="floors">
+              <option value="1" selected>1</option>
+              <option value="1.06">2</option>
+              <option value="1.12">3</option>
+            </select>
+          </div>
+        </div>
+        <div style="margin-top:16px">
+          <label for="area">Площадь, м²</label>
+          <div class="range">
+            <input id="area" type="range" min="40" max="400" step="5" value="140">
+            <output id="areaOut">140 м²</output>
+          </div>
+        </div>
+        <div class="grid" style="margin-top:16px">
+          <div>
+            <label for="mat">Материал стен</label>
+            <select id="mat">
+              <option value="1" selected>Газобетон</option>
+              <option value="1.15">Кирпич</option>
+              <option value="0.9">Каркас</option>
+              <option value="1.08">Керамоблок</option>
+            </select>
+          </div>
+          <div>
+            <label for="found">Фундамент</label>
+            <select id="found">
+              <option value="1" selected>Ленточный</option>
+              <option value="1.12">Плита</option>
+              <option value="0.95">Свайно-ростверковый</option>
+            </select>
+          </div>
+        </div>
+        <label style="margin-top:16px">Дополнительно</label>
+        <div class="checks">
+          <label class="check"><input type="checkbox" id="roof" checked> Кровля</label>
+          <label class="check"><input type="checkbox" id="windows"> Окна и двери</label>
+          <label class="check"><input type="checkbox" id="eng"> Инженерия</label>
+          <label class="check"><input type="checkbox" id="finish"> Чистовая отделка</label>
+        </div>
+      </div>
+
+      <aside class="total">
+        <div class="cap">Ориентировочная стоимость</div>
+        <div class="sum" id="sum">— ₽</div>
+        <div class="note" id="note">за дом под ключ</div>
+        <a class="btn" id="wa" href="#">Отправить смету в WhatsApp</a>
+        <ul id="lines"></ul>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="steps">
+  <div class="wrap sec">
+    <h2>Как идёт стройка</h2>
+    <p class="sub">Каждый этап закрывается актом. Оплата — по факту работ, без предоплаты за весь дом.</p>
+    <div class="steps">
+      <article><div class="n">01</div><h3>Участок</h3><p>Выезд, геология, посадка дома, смета в течение трёх дней.</p></article>
+      <article><div class="n">02</div><h3>Фундамент</h3><p>Разметка, армирование, заливка. Фотоотчёт на каждом шаге.</p></article>
+      <article><div class="n">03</div><h3>Коробка</h3><p>Стены, перекрытия, кровля. Закрываем контур до холодов.</p></article>
+      <article><div class="n">04</div><h3>Отделка</h3><p>Инженерия, окна, чистовая. Сдаём с приёмкой и гарантией.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="what">
+  <div class="wrap sec">
+    <h2>Что входит в цену</h2>
+    <p class="sub">В смете расписано по позициям: материалы, работы, техника. Ничего «по факту».</p>
+    <div class="incl">
+      <ul>
+        <li>Проект и посадка на участок</li>
+        <li>Земляные работы и фундамент</li>
+        <li>Стены, перегородки, армопояс</li>
+        <li>Перекрытия и лестницы</li>
+      </ul>
+      <ul>
+        <li>Кровля с водостоком</li>
+        <li>Окна, входная группа</li>
+        <li>Электрика, вода, канализация</li>
+        <li>Вывоз мусора и уборка</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="cta" id="contact">
+  <div class="wrap">
+    <div>
+      <h2>Нужна смета на ваш участок?</h2>
+      <p>Выезд бесплатный · Черкесск и КЧР · ежедневно 9:00–19:00</p>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <a class="btn" href="https://wa.me/79000000000?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%9D%D1%83%D0%B6%D0%BD%D0%B0%20%D1%81%D0%BC%D0%B5%D1%82%D0%B0" target="_blank" rel="noopener">Написать в WhatsApp</a>
+      <a class="btn ghost" href="tel:+79000000000">Позвонить</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div>© 2026 Стройка · Черкесск</div>
+    <div>Демонстрационная страница. Цены и данные заполняются под вашу смету.</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
+  var PHONE = "79000000000";
+  var BASE = 46000;   // руб/м2 под ключ
+
+  function fmt(v){ return Math.round(v).toLocaleString("ru-RU") + " ₽"; }
+
+  function calc(){
+    var area = parseFloat($("area").value);
+    $("areaOut").textContent = area + " м²";
+
+    var kind = parseFloat($("kind").value);
+    var floors = parseFloat($("floors").value);
+    var mat = parseFloat($("mat").value);
+    var found = parseFloat($("found").value);
+
+    var perM2 = BASE * kind * mat * found * (floors > 1 ? 1 + (floors - 1) * 0.03 : 1);
+    var shell = perM2 * area;
+    var total = shell;
+    var lines = [["Работы и материалы", shell]];
+
+    if ($("roof").checked){ var r = area * 2600; total += r; lines.push(["Кровля", r]); }
+    if ($("windows").checked){ var w = area * 3400; total += w; lines.push(["Окна и двери", w]); }
+    if ($("eng").checked){ var e = area * 4200; total += e; lines.push(["Инженерия", e]); }
+    if ($("finish").checked){ var f = area * 9500; total += f; lines.push(["Отделка", f]); }
+
+    var low = total * 0.94, high = total * 1.08;
+    $("sum").textContent = fmt(low) + " – " + fmt(high);
+    $("note").textContent = $("kind").selectedOptions[0].text + " · " + area + " м² · " + $("mat").selectedOptions[0].text;
+
+    $("lines").innerHTML = lines.map(function(l){
+      return "<li><span>" + l[0] + "</span><span>" + fmt(l[1]) + "</span></li>";
+    }).join("");
+
+    var msg = "Здравствуйте! Смета с сайта:\n"
+      + "Объект: " + $("kind").selectedOptions[0].text + "\n"
+      + "Площадь: " + area + " м², этажей: " + $("floors").selectedOptions[0].text + "\n"
+      + "Стены: " + $("mat").selectedOptions[0].text + "\n"
+      + "Фундамент: " + $("found").selectedOptions[0].text + "\n"
+      + "Ориентир: " + fmt(low) + " – " + fmt(high) + "\n"
+      + "Хочу точную смету и выезд на участок.";
+    $("wa").href = "https://wa.me/" + PHONE + "?text=" + encodeURIComponent(msg);
+  }
+
+  ["kind","floors","area","mat","found","roof","windows","eng","finish"].forEach(function(id){
+    var el = $(id);
+    el.addEventListener("input", calc);
+    el.addEventListener("change", calc);
+  });
+  calc();
+})();
+</script>
+</body>
+</html>
