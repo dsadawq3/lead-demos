@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="color-scheme" content="light">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Кухни на заказ — цена по размерам | Черкесск</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{color-scheme:light}
+  :root{
+    --ink:#191714;
+    --ink-2:#6A6259;
+    --line:#E4DCD0;
+    --paper:#FAF7F2;
+    --card:#FFFFFF;
+    --wood:#8A5A3B;
+    --wood-2:#A06C48;
+    --olive:#4A5A42;
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:"Inter Tight",system-ui,sans-serif;font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+  h1,h2,h3{font-family:"Playfair Display",Georgia,serif;font-weight:500;letter-spacing:-.01em}
+  .top{position:sticky;top:0;z-index:20;background:rgba(250,247,242,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .top .wrap{height:68px;display:flex;align-items:center;justify-content:space-between}
+  .brand{font-family:"Playfair Display",serif;font-size:20px}
+  .brand i{font-family:"Inter Tight",sans-serif;font-style:normal;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-2);margin-left:10px}
+  nav{display:flex;gap:24px;font-size:14px;color:var(--ink-2)}
+  nav a{text-decoration:none;color:inherit}
+  nav a:hover{color:var(--ink)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:8px;padding:13px 20px;font:inherit;font-size:15px;font-weight:500;background:var(--wood);color:#fff;border:0;cursor:pointer;text-decoration:none;transition:background .15s,transform .15s}
+  .btn:hover{background:var(--wood-2);transform:translateY(-1px)}
+  .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+  .btn.ghost:hover{background:#fff}
+  .hero{padding:64px 0 54px;border-bottom:1px solid var(--line)}
+  .hero .wrap{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center}
+  .kicker{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--wood);font-weight:600}
+  h1{font-size:clamp(38px,4.8vw,60px);line-height:1.04;margin:16px 0 16px}
+  h1 em{font-style:italic;color:var(--olive)}
+  .lead{color:var(--ink-2);max-width:42ch;margin:0 0 26px}
+  .hero-cta{display:flex;gap:10px;flex-wrap:wrap}
+  .nums{display:flex;gap:30px;margin-top:30px}
+  .nums div{border-top:1px solid var(--line);padding-top:10px}
+  .nums b{display:block;font-family:"Playfair Display",serif;font-size:24px}
+  .nums span{font-size:12.5px;color:var(--ink-2)}
+  .art svg{width:100%;height:auto;display:block}
+  section{border-bottom:1px solid var(--line)}
+  .sec{padding:64px 0}
+  .sec h2{font-size:clamp(28px,3.2vw,40px);margin:0 0 8px}
+  .sec p.sub{color:var(--ink-2);margin:0 0 32px;max-width:58ch}
+  .calc{display:grid;grid-template-columns:1.3fr .7fr;gap:20px;align-items:start}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+  label{display:block;font-size:12.5px;color:var(--ink-2);margin-bottom:6px}
+  select,input{width:100%;padding:12px 12px;border:1px solid var(--line);border-radius:8px;background:#fff;font:inherit;font-size:15px;color:var(--ink)}
+  select:focus,input:focus{outline:2px solid rgba(138,90,59,.2);border-color:var(--wood)}
+  .range{display:flex;align-items:center;gap:12px}
+  .range input[type=range]{flex:1;accent-color:var(--wood)}
+  .range output{min-width:78px;text-align:right}
+  .total{background:var(--olive);color:#F6F3EA;border-radius:var(--radius);padding:24px;position:sticky;top:90px}
+  .total .cap{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#B9C4AE}
+  .total .sum{font-family:"Playfair Display",serif;font-size:36px;line-height:1.1;margin:12px 0 4px}
+  .total .note{font-size:13px;color:#B9C4AE;margin-bottom:18px}
+  .total .btn{width:100%;background:#F6F3EA;color:var(--olive)}
+  .total .btn:hover{background:#fff}
+  .total ul{list-style:none;padding:0;margin:16px 0 0;font-size:13px;color:#C9D2C1}
+  .total li{display:flex;justify-content:space-between;border-top:1px dashed rgba(255,255,255,.16);padding:6px 0}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .steps article{border-top:1px solid var(--ink);padding-top:14px}
+  .steps .n{font-size:11px;letter-spacing:.16em;color:var(--wood);font-weight:600}
+  .steps h3{font-size:18px;margin:8px 0 6px}
+  .steps p{margin:0;color:var(--ink-2);font-size:14px}
+  .cta{background:var(--wood);color:#fff}
+  .cta .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:30px 24px;flex-wrap:wrap}
+  .cta h2{color:#fff;margin:0 0 4px}
+  .cta p{margin:0;color:#F0DDD0;font-size:14px}
+  .cta .btn{background:#FBF7F1;color:var(--wood)}
+  .cta .btn.ghost{border-color:rgba(255,255,255,.35);color:#fff;background:transparent}
+  footer{padding:28px 0 40px;color:var(--ink-2);font-size:13px}
+  footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  @media (max-width:920px){
+    .hero .wrap{grid-template-columns:1fr;gap:30px}
+    .art{order:-1}
+    .calc{grid-template-columns:1fr}
+    .total{position:static}
+    .steps{grid-template-columns:1fr 1fr}
+    nav{display:none}
+    .grid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">Кухни<i>Черкесск</i></div>
+    <nav>
+      <a href="#calc">Расчёт</a>
+      <a href="#steps">Как заказать</a>
+      <a href="#contact">Контакты</a>
+    </nav>
+    <a class="btn ghost" href="tel:+79000000000">+7 900 000-00-00</a>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div>
+      <div class="kicker">Своё производство · замер бесплатно</div>
+      <h1>Кухня по вашим<br><em>размерам</em>, а не по каталогу</h1>
+      <p class="lead">Считаем стоимость по погонным метрам и материалам. Цена видна до замера, срок — 20 дней.</p>
+      <div class="hero-cta">
+        <a class="btn" href="#calc">Посчитать кухню</a>
+        <a class="btn ghost" href="#steps">Как заказать</a>
+      </div>
+      <div class="nums">
+        <div><b>20 дней</b><span>от замера до монтажа</span></div>
+        <div><b>5 лет</b><span>гарантия на фасады</span></div>
+        <div><b>0 ₽</b><span>замер и проект</span></div>
+      </div>
+    </div>
+    <div class="art">
+      <svg viewBox="0 0 520 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Кухня">
+        <rect x="20" y="14" width="480" height="372" rx="8" fill="#F1EADF"/>
+        <rect x="20" y="300" width="480" height="86" fill="#E6DCCB"/>
+        <g fill="#8A5A3B">
+          <rect x="56" y="120" width="118" height="180" rx="4"/>
+          <rect x="188" y="120" width="118" height="180" rx="4"/>
+          <rect x="320" y="120" width="118" height="180" rx="4"/>
+        </g>
+        <g fill="#A06C48">
+          <rect x="66" y="132" width="98" height="76" rx="2"/>
+          <rect x="198" y="132" width="98" height="76" rx="2"/>
+          <rect x="330" y="132" width="98" height="76" rx="2"/>
+          <rect x="66" y="216" width="98" height="74" rx="2"/>
+          <rect x="198" y="216" width="98" height="74" rx="2"/>
+          <rect x="330" y="216" width="98" height="74" rx="2"/>
+        </g>
+        <g stroke="#6F462C" stroke-width="3" fill="none">
+          <rect x="56" y="120" width="118" height="180" rx="4"/>
+          <rect x="188" y="120" width="118" height="180" rx="4"/>
+          <rect x="320" y="120" width="118" height="180" rx="4"/>
+        </g>
+        <rect x="20" y="104" width="480" height="16" rx="3" fill="#4A5A42"/>
+        <rect x="232" y="60" width="70" height="44" rx="4" fill="#D9CDBA"/>
+        <rect x="244" y="70" width="46" height="10" rx="2" fill="#B9A98F"/>
+        <rect x="56" y="40" width="34" height="52" rx="3" fill="#C8B99F"/>
+        <ellipse cx="420" cy="70" rx="26" ry="9" fill="#D9CDBA"/>
+        <rect x="416" y="70" width="8" height="26" fill="#B9A98F"/>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<section id="calc">
+  <div class="wrap sec">
+    <h2>Стоимость по размерам</h2>
+    <p class="sub">Двиньте длину и выберите материалы — получите вилку. Точную сумму фиксируем после замера и проекта.</p>
+    <div class="calc">
+      <div class="panel">
+        <div>
+          <label for="len">Длина кухни, погонных метров</label>
+          <div class="range">
+            <input id="len" type="range" min="1.5" max="8" step="0.1" value="3.6">
+            <output id="lenOut">3,6 м</output>
+          </div>
+        </div>
+        <div class="grid" style="margin-top:16px">
+          <div>
+            <label for="shape">Форма</label>
+            <select id="shape">
+              <option value="1" selected>Линейная</option>
+              <option value="1.18">Угловая</option>
+              <option value="1.32">П-образная</option>
+              <option value="1.12">С островом</option>
+            </select>
+          </div>
+          <div>
+            <label for="facade">Фасады</label>
+            <select id="facade">
+              <option value="1" selected>ЛДСП</option>
+              <option value="1.35">МДФ в плёнке</option>
+              <option value="1.7">Эмаль</option>
+              <option value="2.1">Шпон / массив</option>
+            </select>
+          </div>
+          <div>
+            <label for="top">Столешница</label>
+            <select id="top">
+              <option value="1" selected>ЛДСП</option>
+              <option value="1.22">Акрил</option>
+              <option value="1.5">Кварцевый камень</option>
+            </select>
+          </div>
+          <div>
+            <label for="tech">Техника</label>
+            <select id="tech">
+              <option value="0" selected>Своя</option>
+              <option value="1">Встроенная, наша</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <aside class="total">
+        <div class="cap">Ориентировочно</div>
+        <div class="sum" id="sum">— ₽</div>
+        <div class="note" id="note">линейная, 3,6 м</div>
+        <a class="btn" id="wa" href="#">Отправить расчёт в WhatsApp</a>
+        <ul id="lines"></ul>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="steps">
+  <div class="wrap sec">
+    <h2>Как заказать</h2>
+    <p class="sub">От замера до монтажа — 20 дней. Проект и 3D показываем до оплаты.</p>
+    <div class="steps">
+      <article><div class="n">01</div><h3>Замер</h3><p>Бесплатно, с учётом труб и розеток. Сразу говорим вилку цены.</p></article>
+      <article><div class="n">02</div><h3>Проект</h3><p>Планировка и 3D. Правки бесплатно, пока не понравится.</p></article>
+      <article><div class="n">03</div><h3>Производство</h3><p>Свой цех в Черкесске, срок 14 дней, без посредников.</p></article>
+      <article><div class="n">04</div><h3>Монтаж</h3><p>Своя бригада, подключение техники, уборка после.</p></article>
+    </div>
+  </div>
+</section>
+
+<div class="cta" id="contact">
+  <div class="wrap">
+    <div>
+      <h2>Нужен замер?</h2>
+      <p>Черкесск и КЧР · ежедневно 9:00–19:00</p>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <a class="btn" href="https://wa.me/79000000000?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%9D%D1%83%D0%B6%D0%B5%D0%BD%20%D0%B7%D0%B0%D0%BC%D0%B5%D1%80" target="_blank" rel="noopener">Написать в WhatsApp</a>
+      <a class="btn ghost" href="tel:+79000000000">Позвонить</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div>© 2026 Кухни · Черкесск</div>
+    <div>Демонстрационная страница. Цены и материалы заполняются под ваше производство.</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id);};
+  var PHONE="79000000000";
+  var BASE=42000; // руб за погонный метр базовой кухни
+  function fmt(v){ return Math.round(v).toLocaleString("ru-RU")+" ₽"; }
+  function calc(){
+    var len=parseFloat($("len").value);
+    $("lenOut").textContent=len.toFixed(1).replace(".",",")+" м";
+    var shape=parseFloat($("shape").value);
+    var facade=parseFloat($("facade").value);
+    var top=parseFloat($("top").value);
+    var tech=parseFloat($("tech").value);
+    var perM=BASE*facade*top;
+    var base=perM*len*shape;
+    var lines=[["Кухня "+len.toFixed(1).replace(".",",")+" м", base]];
+    var total=base;
+    if(tech){
+      var t=len*12000; total+=t; lines.push(["Встроенная техника", t]);
+    }
+    var min=total*0.95, max=total*1.1;
+    $("sum").textContent=fmt(min)+" – "+fmt(max);
+    $("note").textContent=$("shape").selectedOptions[0].text+", "+len.toFixed(1).replace(".",",")+" м · "+$("facade").selectedOptions[0].text;
+    $("lines").innerHTML=lines.map(function(l){return "<li><span>"+l[0]+"</span><span>"+fmt(l[1])+"</span></li>";}).join("");
+    var msg="Здравствуйте! Расчёт с сайта:\n"
+      +"Длина: "+len.toFixed(1)+" м\n"
+      +"Форма: "+$("shape").selectedOptions[0].text+"\n"
+      +"Фасады: "+$("facade").selectedOptions[0].text+"\n"
+      +"Столешница: "+$("top").selectedOptions[0].text+"\n"
+      +"Техника: "+$("tech").selectedOptions[0].text+"\n"
+      +"Ориентир: "+fmt(min)+" – "+fmt(max)+"\n"
+      +"Хочу замер и точный проект.";
+    $("wa").href="https://wa.me/"+PHONE+"?text="+encodeURIComponent(msg);
+  }
+  ["len","shape","facade","top","tech"].forEach(function(id){ var el=$(id); el.addEventListener("input",calc); el.addEventListener("change",calc); });
+  calc();
+})();
+</script>
+</body>
+</html>

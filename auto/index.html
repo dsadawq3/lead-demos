@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="color-scheme" content="light">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Автосервис — стоимость работ сразу | Черкесск</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600&display=swap" rel="stylesheet">
+<style>
+  :root{color-scheme:light}
+  :root{
+    --ink:#101215;
+    --ink-2:#565B62;
+    --line:#DBDDE1;
+    --paper:#F3F4F6;
+    --card:#FFFFFF;
+    --blue:#1B3F8F;
+    --blue-2:#27509F;
+    --acid:#C8F04A;
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:"Inter Tight",system-ui,sans-serif;font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+  h1,h2,h3{font-family:"Bricolage Grotesque","Inter Tight",sans-serif;font-weight:600;letter-spacing:-.025em}
+  .top{position:sticky;top:0;z-index:20;background:rgba(243,244,246,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .top .wrap{height:68px;display:flex;align-items:center;justify-content:space-between}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:600;letter-spacing:-.02em}
+  .brand .dot{width:10px;height:10px;border-radius:3px;background:var(--acid);box-shadow:0 0 0 3px rgba(200,240,74,.35)}
+  .brand i{font-style:normal;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2);font-weight:500}
+  nav{display:flex;gap:24px;font-size:14px;color:var(--ink-2)}
+  nav a{text-decoration:none;color:inherit}
+  nav a:hover{color:var(--ink)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;border-radius:9px;padding:13px 20px;font:inherit;font-size:15px;font-weight:500;background:var(--blue);color:#fff;border:0;cursor:pointer;text-decoration:none;transition:background .15s,transform .15s}
+  .btn:hover{background:var(--blue-2);transform:translateY(-1px)}
+  .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+  .btn.ghost:hover{background:#fff}
+  .hero{padding:66px 0 56px;border-bottom:1px solid var(--line)}
+  .hero .wrap{display:grid;grid-template-columns:1.06fr .94fr;gap:52px;align-items:center}
+  .kicker{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);font-weight:600}
+  .kicker b{background:var(--acid);color:var(--ink);border-radius:4px;padding:3px 7px;letter-spacing:.06em}
+  h1{font-size:clamp(40px,5vw,62px);line-height:1.02;margin:18px 0 18px}
+  h1 span{color:var(--blue)}
+  .lead{color:var(--ink-2);max-width:44ch;margin:0 0 26px}
+  .hero-cta{display:flex;gap:10px;flex-wrap:wrap}
+  .nums{display:flex;gap:30px;margin-top:32px}
+  .nums div{border-top:1px solid var(--line);padding-top:10px}
+  .nums b{display:block;font-family:"Bricolage Grotesque",sans-serif;font-size:24px}
+  .nums span{font-size:12.5px;color:var(--ink-2)}
+  .art svg{width:100%;height:auto;display:block}
+  section{border-bottom:1px solid var(--line)}
+  .sec{padding:64px 0}
+  .sec h2{font-size:clamp(28px,3.2vw,40px);margin:0 0 8px}
+  .sec p.sub{color:var(--ink-2);margin:0 0 32px;max-width:56ch}
+  .calc{display:grid;grid-template-columns:1.28fr .72fr;gap:20px;align-items:start}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+  label{display:block;font-size:12.5px;color:var(--ink-2);margin-bottom:6px}
+  select,input{width:100%;padding:12px 12px;border:1px solid var(--line);border-radius:8px;background:#fff;font:inherit;font-size:15px;color:var(--ink)}
+  select:focus,input:focus{outline:2px solid rgba(27,63,143,.2);border-color:var(--blue)}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .chip{position:relative}
+  .chip input{position:absolute;opacity:0;pointer-events:none}
+  .chip span{display:inline-block;padding:9px 13px;border:1px solid var(--line);border-radius:8px;font-size:14px;cursor:pointer;background:#fff;transition:.12s}
+  .chip input:checked + span{border-color:var(--blue);background:#EEF3FF;color:var(--blue);font-weight:500}
+  .total{background:var(--ink);color:#F1F2F4;border-radius:var(--radius);padding:24px;position:sticky;top:90px}
+  .total .cap{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#8E959E}
+  .total .sum{font-family:"Bricolage Grotesque",sans-serif;font-size:40px;line-height:1.05;margin:12px 0 4px}
+  .total .note{font-size:13px;color:#9AA1A9;margin-bottom:18px}
+  .total .btn{width:100%;background:var(--acid);color:var(--ink)}
+  .total .btn:hover{background:#D8FF66}
+  .total ul{list-style:none;padding:0;margin:16px 0 0;font-size:13px;color:#B3B9C0}
+  .total li{display:flex;justify-content:space-between;border-top:1px dashed rgba(255,255,255,.14);padding:6px 0}
+  .why{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .why article{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+  .why .n{font-family:"Bricolage Grotesque",sans-serif;font-size:13px;color:var(--blue);margin-bottom:8px}
+  .why h3{font-size:17px;margin:0 0 6px}
+  .why p{margin:0;color:var(--ink-2);font-size:14px}
+  .cta{background:var(--blue);color:#fff}
+  .cta .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:30px 24px;flex-wrap:wrap}
+  .cta h2{color:#fff;margin:0 0 4px}
+  .cta p{margin:0;color:#B9C8E8;font-size:14px}
+  .cta .btn{background:var(--acid);color:var(--ink)}
+  .cta .btn.ghost{border-color:rgba(255,255,255,.3);color:#fff;background:transparent}
+  footer{padding:28px 0 40px;color:var(--ink-2);font-size:13px}
+  footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  @media (max-width:920px){
+    .hero .wrap{grid-template-columns:1fr;gap:32px}
+    .art{order:-1}
+    .calc{grid-template-columns:1fr}
+    .total{position:static}
+    .why{grid-template-columns:1fr}
+    nav{display:none}
+    .grid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand"><span class="dot"></span> АВТОСЕРВИС <i>Черкесск</i></div>
+    <nav>
+      <a href="#calc">Стоимость</a>
+      <a href="#why">Почему мы</a>
+      <a href="#contact">Запись</a>
+    </nav>
+    <a class="btn ghost" href="tel:+79000000000">+7 900 000-00-00</a>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div>
+      <div class="kicker"><b>Сегодня</b> свободные окна на 15:00</div>
+      <h1>Ремонт без<br><span>«оставьте машину,</span><br>перезвоним»</h1>
+      <p class="lead">Считаем стоимость работ до записи. Называем цену до разборки и не меняем её без вашего согласия.</p>
+      <div class="hero-cta">
+        <a class="btn" href="#calc">Посчитать ремонт</a>
+        <a class="btn ghost" href="#why">Что делаем</a>
+      </div>
+      <div class="nums">
+        <div><b>11 лет</b><span>в Черкесске</span></div>
+        <div><b>24 мес</b><span>гарантия на работы</span></div>
+        <div><b>0 ₽</b><span>диагностика</span></div>
+      </div>
+    </div>
+    <div class="art">
+      <svg viewBox="0 0 520 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Автомобиль">
+        <rect x="20" y="16" width="480" height="368" rx="10" fill="#E7E9EE"/>
+        <rect x="20" y="262" width="480" height="122" fill="#DDE0E6"/>
+        <path d="M104 250c8-46 34-70 78-78h84c40 6 66 30 74 78z" fill="#1B3F8F"/>
+        <rect x="70" y="248" width="380" height="66" rx="26" fill="#1B3F8F"/>
+        <path d="M148 244c6-30 24-46 54-50h64c28 4 46 20 52 50z" fill="#CFE0F7"/>
+        <rect x="70" y="248" width="380" height="22" rx="11" fill="#2A57AC" opacity=".55"/>
+        <circle cx="140" cy="316" r="34" fill="#101215"/><circle cx="140" cy="316" r="15" fill="#C8F04A"/>
+        <circle cx="380" cy="316" r="34" fill="#101215"/><circle cx="380" cy="316" r="15" fill="#C8F04A"/>
+        <rect x="418" y="262" width="34" height="16" rx="8" fill="#C8F04A"/>
+        <rect x="20" y="352" width="480" height="14" fill="#C9CDD5"/>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<section id="calc">
+  <div class="wrap sec">
+    <h2>Что и сколько стоит</h2>
+    <p class="sub">Отметьте работы — сумма пересчитается. Это вилка по прайсу: точную цену называем после осмотра, до начала ремонта.</p>
+    <div class="calc">
+      <div class="panel">
+        <div class="grid">
+          <div>
+            <label for="car">Класс авто</label>
+            <select id="car">
+              <option value="1" selected>Седан / хэтчбек</option>
+              <option value="1.15">Кроссовер</option>
+              <option value="1.35">Внедорожник</option>
+              <option value="1.2">Минивэн</option>
+            </select>
+          </div>
+          <div>
+            <label for="parts">Запчасти</label>
+            <select id="parts">
+              <option value="0" selected>Мои</option>
+              <option value="1">Ваши (со склада)</option>
+            </select>
+          </div>
+        </div>
+        <label style="margin-top:16px">Работы</label>
+        <div class="chips">
+          <label class="chip"><input type="checkbox" data-price="6500" checked><span>Замена масла и фильтров</span></label>
+          <label class="chip"><input type="checkbox" data-price="9500"><span>Тормозные колодки</span></label>
+          <label class="chip"><input type="checkbox" data-price="14000"><span>Подвеска (диагностика и ремонт)</span></label>
+          <label class="chip"><input type="checkbox" data-price="12000"><span>Развал-схождение</span></label>
+          <label class="chip"><input type="checkbox" data-price="30000"><span>Кузовной ремонт, элемент</span></label>
+          <label class="chip"><input type="checkbox" data-price="4000"><span>Компьютерная диагностика</span></label>
+          <label class="chip"><input type="checkbox" data-price="8500"><span>Замена ремня ГРМ</span></label>
+          <label class="chip"><input type="checkbox" data-price="6000"><span>Кондиционер (заправка)</span></label>
+        </div>
+      </div>
+      <aside class="total">
+        <div class="cap">Предварительно</div>
+        <div class="sum" id="sum">— ₽</div>
+        <div class="note" id="note">выберите работы</div>
+        <a class="btn" id="wa" href="#">Записаться в WhatsApp</a>
+        <ul id="lines"></ul>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="why">
+  <div class="wrap sec">
+    <h2>Как работаем</h2>
+    <p class="sub">Машину не держим «на посмотреть» неделю. Сроки и цену фиксируем в заказ-наряде.</p>
+    <div class="why">
+      <article><div class="n">01</div><h3>Диагностика</h3><p>Бесплатно, 30 минут. Показываем, что именно сломано, и снимаем на видео.</p></article>
+      <article><div class="n">02</div><h3>Смета</h3><p>Цена работ и запчастей до начала. Без «нашли ещё» без вашего согласия.</p></article>
+      <article><div class="n">03</div><h3>Ремонт</h3><p>Сроки в наряде, гарантия 24 месяца, старые детали отдаём вам.</p></article>
+    </div>
+  </div>
+</section>
+
+<div class="cta" id="contact">
+  <div class="wrap">
+    <div>
+      <h2>Записаться на ремонт</h2>
+      <p>Черкесск · ежедневно 9:00–20:00 · подменный автомобиль</p>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <a class="btn" href="https://wa.me/79000000000?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BF%D0%B8%D1%81%D0%B0%D1%82%D1%8C%D1%81%D1%8F" target="_blank" rel="noopener">Написать в WhatsApp</a>
+      <a class="btn ghost" href="tel:+79000000000">Позвонить</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div>© 2026 Автосервис · Черкесск</div>
+    <div>Демонстрационная страница. Цены и работы заполняются под ваш прайс.</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id);};
+  var PHONE="79000000000";
+  function fmt(v){ return Math.round(v).toLocaleString("ru-RU")+" ₽"; }
+  function calc(){
+    var car=parseFloat($("car").value);
+    var parts=parseFloat($("parts").value);
+    var total=0, lines=[];
+    document.querySelectorAll('.chip input').forEach(function(cb){
+      if(cb.checked){
+        var p=parseFloat(cb.dataset.price)*car;
+        total+=p;
+        lines.push([cb.parentElement.innerText.trim(), p]);
+      }
+    });
+    if(!lines.length){
+      $("sum").textContent="— ₽"; $("note").textContent="выберите работы"; $("lines").innerHTML="";
+      $("wa").href="https://wa.me/"+PHONE+"?text="+encodeURIComponent("Здравствуйте! Хочу записаться на ремонт.");
+      return;
+    }
+    var totalMin=total*0.92, totalMax=total*1.12;
+    $("sum").textContent=fmt(totalMin)+" – "+fmt(totalMax);
+    $("note").textContent=lines.length+" "+word(lines.length)+" · "+(parts?"с вашими запчастями":"со своими запчастями");
+    $("lines").innerHTML=lines.map(function(l){return "<li><span>"+l[0]+"</span><span>"+fmt(l[1])+"</span></li>";}).join("");
+    var msg="Здравствуйте! Хочу записаться:\n"+lines.map(function(l){return "• "+l[0];}).join("\n")
+      +"\nАвто: "+$("car").selectedOptions[0].text+"\nЗапчасти: "+$("parts").selectedOptions[0].text
+      +"\nОриентир: "+fmt(totalMin)+" – "+fmt(totalMax);
+    $("wa").href="https://wa.me/"+PHONE+"?text="+encodeURIComponent(msg);
+  }
+  function word(n){ if(n%10===1&&n%100!==11)return "работа"; if(n%10>=2&&n%10<=4&&!(n%100>=12&&n%100<=14))return "работы"; return "работ"; }
+  document.querySelectorAll('select,.chip input').forEach(function(el){ el.addEventListener("change",calc); });
+  calc();
+})();
+</script>
+</body>
+</html>
