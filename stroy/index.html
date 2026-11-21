@@ -300,7 +300,7 @@
 (function(){
   var $ = function(id){ return document.getElementById(id); };
   var PHONE = "79000000000";
-  var BASE = 46000;   // руб/м2 под ключ
+  var BASE = 45000;   // руб/м2: фундамент + коробка
 
   function fmt(v){ return Math.round(v).toLocaleString("ru-RU") + " ₽"; }
 
@@ -313,17 +313,17 @@
     var mat = parseFloat($("mat").value);
     var found = parseFloat($("found").value);
 
-    var perM2 = BASE * kind * mat * found * (floors > 1 ? 1 + (floors - 1) * 0.03 : 1);
+    var perM2 = BASE * kind * mat * found * (1 + (floors - 1) * 0.08);
     var shell = perM2 * area;
     var total = shell;
     var lines = [["Работы и материалы", shell]];
 
-    if ($("roof").checked){ var r = area * 2600; total += r; lines.push(["Кровля", r]); }
-    if ($("windows").checked){ var w = area * 3400; total += w; lines.push(["Окна и двери", w]); }
-    if ($("eng").checked){ var e = area * 4200; total += e; lines.push(["Инженерия", e]); }
-    if ($("finish").checked){ var f = area * 9500; total += f; lines.push(["Отделка", f]); }
+    if ($("roof").checked){ var r = area * 3200; total += r; lines.push(["Кровля", r]); }
+    if ($("windows").checked){ var w = area * 4200; total += w; lines.push(["Окна и двери", w]); }
+    if ($("eng").checked){ var e = area * 6500; total += e; lines.push(["Инженерия", e]); }
+    if ($("finish").checked){ var f = area * 15000; total += f; lines.push(["Отделка", f]); }
 
-    var low = total * 0.94, high = total * 1.08;
+    var low = total * 0.93, high = total * 1.09;
     $("sum").textContent = fmt(low) + " – " + fmt(high);
     $("note").textContent = $("kind").selectedOptions[0].text + " · " + area + " м² · " + $("mat").selectedOptions[0].text;
 
