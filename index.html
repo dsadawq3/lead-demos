@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Примеры страниц для бизнеса</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;background:#F7F5EF;color:#12140F;font-family:"Inter Tight",system-ui,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:960px;margin:0 auto;padding:80px 24px 64px}
+  h1{font-family:"Instrument Serif",serif;font-weight:400;font-size:clamp(38px,5vw,58px);line-height:1.05;margin:0 0 14px;letter-spacing:-.02em}
+  h1 em{font-style:italic;color:#2F5D45}
+  p.lead{color:#4A4E45;max-width:52ch;margin:0 0 46px;font-size:17px}
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  a.card{display:block;text-decoration:none;color:inherit;background:#fff;border:1px solid #E2DED4;border-radius:16px;padding:26px;transition:transform .15s ease, box-shadow .15s ease}
+  a.card:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(18,20,15,.08)}
+  a.card .tag{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#B4552D;font-weight:600}
+  a.card h2{font-family:"Instrument Serif",serif;font-weight:400;font-size:28px;margin:10px 0 8px}
+  a.card p{margin:0;color:#4A4E45;font-size:14.5px}
+  footer{margin-top:44px;color:#4A4E45;font-size:13px}
+  @media (max-width:700px){.cards{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Страницы, которые <em>считают</em>, а не рассказывают</h1>
+  <p class="lead">Два примера для локального бизнеса: калькулятор стоимости и бронь с заявкой в WhatsApp. Всё заполняется вашими ценами, фото и телефоном.</p>
+  <div class="cards">
+    <a class="card" href="okna/">
+      <div class="tag">Окна · монтаж</div>
+      <h2>Калькулятор окон</h2>
+      <p>Тип, размер, профиль, стеклопакет и допы. Цена пересчитывается сразу, расчёт уходит в WhatsApp.</p>
+    </a>
+    <a class="card" href="gostevoy/">
+      <div class="tag">Гостевой дом · бронь</div>
+      <h2>Бронь без звонков</h2>
+      <p>Даты, номер, гости, завтрак и парковка. Стоимость за проживание считается на месте.</p>
+    </a>
+  </div>
+  <footer>Демонстрационные страницы. Данные вымышленные, телефон и цены подставляются под клиента.</footer>
+</div>
+</body>
+</html>

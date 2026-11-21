@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Окна — расчёт за минуту | Черкесск</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#12140F;
+    --ink-2:#4A4E45;
+    --line:#E2DED4;
+    --paper:#F7F5EF;
+    --card:#FFFFFF;
+    --accent:#2F5D45;
+    --accent-2:#B4552D;
+    --radius:18px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Inter Tight",system-ui,-apple-system,"Segoe UI",sans-serif;
+    font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+  a{color:inherit}
+  .top{border-bottom:1px solid var(--line);background:rgba(247,245,239,.92);backdrop-filter:blur(8px);position:sticky;top:0;z-index:20}
+  .top .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .brand{display:flex;align-items:baseline;gap:10px;font-weight:600;letter-spacing:-.01em}
+  .brand span{font-family:"Instrument Serif",serif;font-weight:400;font-size:22px}
+  .brand i{font-style:normal;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
+  .top-nav{display:flex;gap:26px;font-size:14px;color:var(--ink-2)}
+  .top-nav a{text-decoration:none}
+  .top-nav a:hover{color:var(--ink)}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    border:0;border-radius:999px;padding:14px 22px;font:inherit;font-weight:500;
+    background:var(--accent);color:#fff;cursor:pointer;text-decoration:none;
+    transition:transform .15s ease, background .15s ease;
+  }
+  .btn:hover{background:#264b38;transform:translateY(-1px)}
+  .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+  .btn.ghost:hover{border-color:#c9c3b6;background:#fff}
+  .hero{padding:76px 0 64px}
+  .hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center}
+  .kicker{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-2);font-weight:600}
+  h1{
+    font-family:"Instrument Serif",serif;font-weight:400;font-size:clamp(42px,5.2vw,68px);
+    line-height:1.02;letter-spacing:-.02em;margin:18px 0 20px;
+  }
+  h1 em{font-style:italic;color:var(--accent)}
+  .lead{font-size:18px;color:var(--ink-2);max-width:46ch}
+  .hero-cta{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
+  .hero-note{margin-top:22px;font-size:13px;color:var(--ink-2)}
+  .art{position:relative}
+  .art svg{width:100%;height:auto;display:block;filter:drop-shadow(0 30px 50px rgba(18,20,15,.12))}
+  section{border-top:1px solid var(--line)}
+  .sec{padding:72px 0}
+  .sec h2{font-family:"Instrument Serif",serif;font-weight:400;font-size:clamp(30px,3.4vw,42px);margin:0 0 10px;letter-spacing:-.01em}
+  .sec p.sub{color:var(--ink-2);margin:0 0 36px;max-width:60ch}
+  .calc{display:grid;grid-template-columns:1.25fr .75fr;gap:24px;align-items:start}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:28px}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+  label{display:block;font-size:13px;color:var(--ink-2);margin-bottom:7px}
+  select,input[type=number],input[type=text]{
+    width:100%;padding:12px 13px;border:1px solid var(--line);border-radius:11px;
+    background:#fff;font:inherit;font-size:15px;color:var(--ink);appearance:none;
+  }
+  select{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8'><path d='M1 1l5 5 5-5' stroke='%234A4E45' stroke-width='1.6' fill='none'/></svg>");background-repeat:no-repeat;background-position:right 13px center}
+  select:focus,input:focus{outline:2px solid rgba(47,93,69,.25);border-color:var(--accent)}
+  .checks{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:6px 0 4px}
+  .check{display:flex;gap:9px;align-items:center;font-size:14px;color:var(--ink);cursor:pointer}
+  .check input{width:16px;height:16px;accent-color:var(--accent)}
+  .total{background:#101812;color:#EDEBE3;border-radius:var(--radius);padding:28px;position:sticky;top:92px}
+  .total .cap{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#9FB0A2}
+  .total .sum{font-family:"Instrument Serif",serif;font-size:46px;line-height:1;margin:14px 0 6px}
+  .total .hint{font-size:13px;color:#9FB0A2;margin-bottom:22px}
+  .total .btn{width:100%;background:#EDEBE3;color:#101812}
+  .total .btn:hover{background:#fff}
+  .total ul{list-style:none;padding:0;margin:18px 0 0;font-size:13px;color:#B9C6BB}
+  .total li{display:flex;justify-content:space-between;padding:6px 0;border-top:1px dashed rgba(255,255,255,.12)}
+  .why{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .why article{border-top:2px solid var(--ink);padding-top:18px}
+  .why .n{font-family:"Instrument Serif",serif;font-size:26px;color:var(--accent);margin-bottom:6px}
+  .why h3{margin:0 0 6px;font-size:17px;font-weight:600}
+  .why p{margin:0;color:var(--ink-2);font-size:14.5px}
+  .strip{background:#EDE9DE}
+  .strip .wrap{display:flex;gap:32px;align-items:center;justify-content:space-between;padding:26px 24px;flex-wrap:wrap}
+  .strip strong{font-family:"Instrument Serif",serif;font-weight:400;font-size:24px}
+  footer{padding:34px 0 46px;color:var(--ink-2);font-size:13px}
+  footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  @media (max-width:900px){
+    .hero .wrap{grid-template-columns:1fr;gap:38px}
+    .art{order:-1}
+    .calc{grid-template-columns:1fr}
+    .total{position:static}
+    .why{grid-template-columns:1fr}
+    .top-nav{display:none}
+    .row{grid-template-columns:1fr}
+    .checks{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand"><span>Окна</span><i>Черкесск</i></div>
+    <nav class="top-nav">
+      <a href="#calc">Расчёт</a>
+      <a href="#why">Как работаем</a>
+      <a href="#price">Цены</a>
+      <a href="#contact">Контакты</a>
+    </nav>
+    <a class="btn ghost" href="tel:+79000000000">+7 900 000-00-00</a>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div>
+      <div class="kicker">Замер и монтаж за 3 дня</div>
+      <h1>Окна, которые<br><em>не продувает</em></h1>
+      <p class="lead">Пластиковые окна и балконные блоки по размеру. Считаем стоимость сразу, без «уточняйте по телефону» и поездок в офис.</p>
+      <div class="hero-cta">
+        <a class="btn" href="#calc">Посчитать стоимость</a>
+        <a class="btn ghost" href="#price">Смотреть цены</a>
+      </div>
+      <p class="hero-note">Гарантия 5 лет · Свой монтаж · Замер бесплатно</p>
+    </div>
+    <div class="art">
+      <svg viewBox="0 0 520 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Окно">
+        <defs>
+          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#CFE0DA"/><stop offset="0.6" stop-color="#E8E3D6"/><stop offset="1" stop-color="#EFE6D6"/>
+          </linearGradient>
+          <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#BCD6CE" stop-opacity=".55"/><stop offset="1" stop-color="#F2EFE6" stop-opacity=".25"/>
+          </linearGradient>
+        </defs>
+        <rect x="26" y="12" width="468" height="436" rx="10" fill="#DFD8C9"/>
+        <rect x="52" y="38" width="416" height="384" rx="4" fill="url(#sky)"/>
+        <rect x="52" y="38" width="416" height="384" rx="4" fill="url(#glass)"/>
+        <path d="M52 300c60-46 96-40 150-8s104 22 150-18 116-20 116-20v168H52z" fill="#2F5D45" opacity=".18"/>
+        <path d="M52 330c70-34 110-26 160 4s110 26 160-6 96-14 96-14v108H52z" fill="#2F5D45" opacity=".26"/>
+        <rect x="256" y="38" width="9" height="384" fill="#3B3F36"/>
+        <rect x="52" y="222" width="416" height="8" fill="#3B3F36"/>
+        <rect x="52" y="38" width="416" height="384" rx="4" fill="none" stroke="#3B3F36" stroke-width="14"/>
+        <rect x="26" y="12" width="468" height="436" rx="10" fill="none" stroke="#2E312B" stroke-width="3" opacity=".5"/>
+        <rect x="120" y="410" width="280" height="16" rx="4" fill="#2E312B" opacity=".55"/>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<section id="calc">
+  <div class="wrap sec">
+    <h2>Стоимость за минуту</h2>
+    <p class="sub">Выберите параметры — цена пересчитается сразу. Это ориентир по прайсу, точную сумму назовём после замера.</p>
+    <div class="calc">
+      <div class="panel">
+        <div class="row">
+          <div>
+            <label for="type">Тип окна</label>
+            <select id="type">
+              <option value="1">Одностворчатое</option>
+              <option value="2" selected>Двустворчатое</option>
+              <option value="3">Трёхстворчатое</option>
+              <option value="4">Балконный блок</option>
+            </select>
+          </div>
+          <div>
+            <label for="profile">Профиль</label>
+            <select id="profile">
+              <option value="1">ПВХ 70 мм</option>
+              <option value="1.18" selected>ПВХ 82 мм, тёплый</option>
+              <option value="1.35">Алюминий с терморазрывом</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label for="w">Ширина, см</label>
+            <input id="w" type="number" value="140" min="40" max="400" step="5">
+          </div>
+          <div>
+            <label for="h">Высота, см</label>
+            <input id="h" type="number" value="140" min="40" max="300" step="5">
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label for="glass">Стеклопакет</label>
+            <select id="glass">
+              <option value="1">Однокамерный</option>
+              <option value="1.15" selected>Двухкамерный</option>
+              <option value="1.3">Энергосберегающий</option>
+            </select>
+          </div>
+          <div>
+            <label for="count">Количество окон</label>
+            <input id="count" type="number" value="1" min="1" max="40" step="1">
+          </div>
+        </div>
+        <label style="margin-top:6px">Дополнительно</label>
+        <div class="checks">
+          <label class="check"><input type="checkbox" id="install" checked> Монтаж</label>
+          <label class="check"><input type="checkbox" id="sill"> Подоконник</label>
+          <label class="check"><input type="checkbox" id="slopes"> Откосы</label>
+          <label class="check"><input type="checkbox" id="demount"> Демонтаж старого</label>
+          <label class="check"><input type="checkbox" id="mosquito"> Москитная сетка</label>
+          <label class="check"><input type="checkbox" id="child"> Детский замок</label>
+        </div>
+      </div>
+
+      <aside class="total">
+        <div class="cap">Предварительная стоимость</div>
+        <div class="sum" id="sum">0 ₽</div>
+        <div class="hint" id="hint">за 1 окно, с монтажом</div>
+        <a class="btn" id="wa" href="#">Отправить расчёт в WhatsApp</a>
+        <ul id="breakdown"></ul>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="why">
+  <div class="wrap sec">
+    <h2>Как мы работаем</h2>
+    <p class="sub">Без «приедем — посмотрим — подумаем». Сроки и суммы фиксируем в договоре.</p>
+    <div class="why">
+      <article><div class="n">01</div><h3>Замер</h3><p>Бесплатно, в удобное время. Сразу называем итоговую сумму.</p></article>
+      <article><div class="n">02</div><h3>Изготовление</h3><p>3–5 дней на производстве. Профиль и стеклопакет — с паспортом.</p></article>
+      <article><div class="n">03</div><h3>Монтаж</h3><p>Своя бригада, чистка после работы, гарантия 5 лет на всё.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="price">
+  <div class="wrap sec">
+    <h2>Цены</h2>
+    <p class="sub">Базовые позиции без «от». Итог зависит от размера и комплектации.</p>
+    <div class="panel">
+      <div class="row" style="grid-template-columns:repeat(3,1fr);margin-bottom:0">
+        <div><label>Одностворчатое 70 мм</label><div style="font-size:22px">от 9 900 ₽</div></div>
+        <div><label>Двустворчатое 82 мм</label><div style="font-size:22px">от 16 400 ₽</div></div>
+        <div><label>Балконный блок</label><div style="font-size:22px">от 24 800 ₽</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="strip" id="contact">
+  <div class="wrap">
+    <div>
+      <strong>Нужен замер?</strong>
+      <div style="color:var(--ink-2);font-size:14px;margin-top:4px">Черкесск и район · ежедневно 9:00–19:00</div>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <a class="btn" href="https://wa.me/79000000000?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%9D%D1%83%D0%B6%D0%B5%D0%BD%20%D0%B7%D0%B0%D0%BC%D0%B5%D1%80" target="_blank" rel="noopener">Написать в WhatsApp</a>
+      <a class="btn ghost" href="tel:+79000000000">Позвонить</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div>© 2026 Окна · Черкесск</div>
+    <div>Демонстрационная страница. Цены и данные заполняются под ваш прайс.</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
+  var PHONE = "79000000000";
+  var BASE = 7400;          // руб/м2
+  var MIN = 7800;
+
+  function num(el, def){ var v = parseFloat(el.value); return isFinite(v) && v > 0 ? v : def; }
+
+  function calc(){
+    var w = Math.max(40, Math.min(400, num($("w"), 140)));
+    var h = Math.max(40, Math.min(300, num($("h"), 140)));
+    var area = (w/100) * (h/100);
+    var typeK = parseFloat($("type").value);
+    var profK = parseFloat($("profile").value);
+    var glassK = parseFloat($("glass").value);
+    var cnt = Math.max(1, Math.min(40, Math.round(num($("count"), 1))));
+
+    var unit = Math.max(MIN, area * BASE * typeK * profK * glassK);
+    var extras = 0;
+    var lines = [];
+    lines.push(["Окно", unit]);
+
+    if ($("install").checked){ var m = 1800 * typeK; extras += m; lines.push(["Монтаж", m]); }
+    if ($("sill").checked){ var s = Math.max(1200, w/100 * 1800); extras += s; lines.push(["Подоконник", s]); }
+    if ($("slopes").checked){ var sl = Math.max(1500, (w/100 + h/100) * 2200); extras += sl; lines.push(["Откосы", sl]); }
+    if ($("demount").checked){ var d = 1200; extras += d; lines.push(["Демонтаж", d]); }
+    if ($("mosquito").checked){ var ms = 900; extras += ms; lines.push(["Москитная сетка", ms]); }
+    if ($("child").checked){ var ch = 450; extras += ch; lines.push(["Детский замок", ch]); }
+
+    var per = unit + extras;
+    var total = per * cnt;
+
+    var fmt = function(v){ return Math.round(v).toLocaleString("ru-RU") + " ₽"; };
+    $("sum").textContent = fmt(total);
+    $("hint").textContent = cnt > 1 ? ("за " + cnt + " окна, " + fmt(per) + " за каждое") : "за 1 окно, с монтажом";
+
+    $("breakdown").innerHTML = lines.map(function(l){
+      return "<li><span>" + l[0] + "</span><span>" + fmt(l[1]) + "</span></li>";
+    }).join("");
+
+    var msg = "Здравствуйте! Расчёт с сайта:\n"
+      + "Тип: " + $("type").selectedOptions[0].text + "\n"
+      + "Профиль: " + $("profile").selectedOptions[0].text + "\n"
+      + "Стеклопакет: " + $("glass").selectedOptions[0].text + "\n"
+      + "Размер: " + w + "×" + h + " см\n"
+      + (cnt > 1 ? ("Количество: " + cnt + "\n") : "")
+      + "Итого примерно: " + fmt(total) + "\n"
+      + "Хочу точный расчёт и замер.";
+    $("wa").href = "https://wa.me/" + PHONE + "?text=" + encodeURIComponent(msg);
+  }
+
+  ["type","profile","glass","w","h","count","install","sill","slopes","demount","mosquito","child"].forEach(function(id){
+    var el = $(id);
+    el.addEventListener("input", calc);
+    el.addEventListener("change", calc);
+  });
+  calc();
+})();
+</script>
+</body>
+</html>
