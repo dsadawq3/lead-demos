@@ -134,16 +134,16 @@
     <div class="art">
       <svg viewBox="0 0 520 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Окно">
         <defs>
-          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+          <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0" stop-color="#CFE0DA"/><stop offset="0.6" stop-color="#E8E3D6"/><stop offset="1" stop-color="#EFE6D6"/>
           </linearGradient>
-          <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+          <linearGradient id="glassGrad" x1="0" y1="0" x2="1" y2="1">
             <stop offset="0" stop-color="#BCD6CE" stop-opacity=".55"/><stop offset="1" stop-color="#F2EFE6" stop-opacity=".25"/>
           </linearGradient>
         </defs>
         <rect x="26" y="12" width="468" height="436" rx="10" fill="#DFD8C9"/>
-        <rect x="52" y="38" width="416" height="384" rx="4" fill="url(#sky)"/>
-        <rect x="52" y="38" width="416" height="384" rx="4" fill="url(#glass)"/>
+        <rect x="52" y="38" width="416" height="384" rx="4" fill="url(#skyGrad)"/>
+        <rect x="52" y="38" width="416" height="384" rx="4" fill="url(#glassGrad)"/>
         <path d="M52 300c60-46 96-40 150-8s104 22 150-18 116-20 116-20v168H52z" fill="#2F5D45" opacity=".18"/>
         <path d="M52 330c70-34 110-26 160 4s110 26 160-6 96-14 96-14v108H52z" fill="#2F5D45" opacity=".26"/>
         <rect x="256" y="38" width="9" height="384" fill="#3B3F36"/>
@@ -194,7 +194,7 @@
         <div class="row">
           <div>
             <label for="glass">Стеклопакет</label>
-            <select id="glass">
+            <select id="glasspack">
               <option value="1">Однокамерный</option>
               <option value="1.15" selected>Двухкамерный</option>
               <option value="1.3">Энергосберегающий</option>
@@ -288,7 +288,7 @@
     var area = (w/100) * (h/100);
     var typeK = parseFloat($("type").value);
     var profK = parseFloat($("profile").value);
-    var glassK = parseFloat($("glass").value);
+    var glassK = parseFloat($("glasspack").value);
     var cnt = Math.max(1, Math.min(40, Math.round(num($("count"), 1))));
 
     var unit = Math.max(MIN, area * BASE * typeK * profK * glassK);
@@ -317,7 +317,7 @@
     var msg = "Здравствуйте! Расчёт с сайта:\n"
       + "Тип: " + $("type").selectedOptions[0].text + "\n"
       + "Профиль: " + $("profile").selectedOptions[0].text + "\n"
-      + "Стеклопакет: " + $("glass").selectedOptions[0].text + "\n"
+      + "Стеклопакет: " + $("glasspack").selectedOptions[0].text + "\n"
       + "Размер: " + w + "×" + h + " см\n"
       + (cnt > 1 ? ("Количество: " + cnt + "\n") : "")
       + "Итого примерно: " + fmt(total) + "\n"
@@ -325,7 +325,7 @@
     $("wa").href = "https://wa.me/" + PHONE + "?text=" + encodeURIComponent(msg);
   }
 
-  ["type","profile","glass","w","h","count","install","sill","slopes","demount","mosquito","child"].forEach(function(id){
+  ["type","profile","glasspack","w","h","count","install","sill","slopes","demount","mosquito","child"].forEach(function(id){
     var el = $(id);
     el.addEventListener("input", calc);
     el.addEventListener("change", calc);
